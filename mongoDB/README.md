@@ -4,9 +4,14 @@ rename .env.template to .env or copy the contents to a .env file
 
 ---
 
-# default values for this image
+# default values for mongoDB image
 
-the default port for this image is 80
+this image use port 27017 by default
+
+for the connection to the database use:
+
+mongodb://{user}:{password}@{host}:{port}
+mongodb://root:pass@localhost:27017
 
 ---
 

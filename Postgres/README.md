@@ -15,6 +15,10 @@ the default port for this image is 5432
 
 change the values of .env.template as you see fit
 
+---
+
 # docker.compose values
 
 you can change the values of the volume name, the image tag and the container name.
+
+---
