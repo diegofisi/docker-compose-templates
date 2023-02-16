@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db:
+    image: mongo:6.0.4
+    container_name: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - mongo_data:/data/db
+      - mongo_data:/data/configdb
+    networks:
+      - mongo-express
+
+  mongo-express:
+    depends_on:
+      - db
+    image: mongo-express:latest
+    container_name: mongo-express
+    restart: always
+    ports:
+      - ${MONGO_EXPRESS_PORT}:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: ${ME_CONFIG_MONGODB_SERVER}
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${ME_CONFIG_MONGODB_ADMINUSERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${ME_CONFIG_MONGODB_ADMINPASSWORD}
+    networks:
+      - mongo-express
+
+volumes:
+  mongo_data:
+    name: mongo_data
+    external: false
+
+networks:
+  mongo-express:
+    name: mongo-express
+    driver: bridge
